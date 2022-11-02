@@ -1,0 +1,52 @@
+.add_schedule_wrap{
+  position: fixed;
+  top : 150px;
+  left: 750px;
+  height : 550px;
+  width : 600px;
+  background-color: #eee;
+  border-radius: 2em;
+  z-index: 1000;
+  padding : 2em;
+}
+.add_schedule_title{
+  font-size: 2em;
+  text-align: center;
+  margin : 10px 0;
+}
+.add_schedule_select_wrap{
+  margin : 30px 0;
+}
+.add_schedule_select_title{
+  font-size : 1.2em;
+  margin-bottom: 10px;
+  color : #666;
+  margin-left: 10px;
+}
+.add_schedule_select, .add_schedule_input{
+  width: 30%;
+  height: 40px;
+  margin: 0 5px;
+  border-radius: 1em;
+  border : 1px solid lightgray;
+  padding : 10px;
+  box-shadow: 2px 2px 5px lightgray;
+  font-size: 1em;
+  font-family: 'Pretendard';
+}
+.add_schedule_input{
+  height: 20px;
+  width: 80%;
+}
+
+.add_schedule_btn_wrap{
+  text-align: center;
+}
+.add_schedule_btn_wrap > .add_btn{
+  width : 25%;
+  border-radius: 1em;
+  margin : 10px;
+}
+.close_btn{
+  background-color: #999;
+}
