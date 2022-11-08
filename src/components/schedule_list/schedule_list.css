@@ -1,0 +1,17 @@
+.schedule_list_wrap {
+  margin: 0 200px;
+}
+.show_schedule {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  color: #666;
+}
+.item_min_height {
+  min-height: 30px;
+}
+.item_margin {
+  width: 95%;
+  margin: 20px 0;
+  min-height: 100px;
+}
