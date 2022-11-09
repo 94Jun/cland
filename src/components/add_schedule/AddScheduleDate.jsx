@@ -4,6 +4,9 @@ const AddScheduleDate = ({
   setStartDate,
   endDate,
   setEndDate,
+  modifyItem,
+  setModfiyItem,
+  isModifyOn,
 }) => {
   let startYears = [];
   for (let i = now.getFullYear() - 10; i < now.getFullYear() + 10; i++) {
@@ -51,29 +54,35 @@ const AddScheduleDate = ({
       setStartDate((prev) => {
         return { ...prev, year: Number(e.target.value) };
       });
+      setModfiyItem((prev) => ({ ...prev, startYearChange: true }));
       if (e.target.value > endDate.year) {
         setEndDate((prev) => {
           return { ...prev, year: Number(e.target.value) };
         });
+        setModfiyItem((prev) => ({ ...prev, endYearChange: true }));
       }
       if (parseInt(e.target.value) + 9 < endDate.year) {
         setEndDate((prev) => {
           return { ...prev, year: Number(parseInt(e.target.value) + 9) };
         });
+        setModfiyItem((prev) => ({ ...prev, endYearChange: true }));
       }
     } else if (e.target.id === "month") {
       setStartDate((prev) => {
         return { ...prev, month: Number(e.target.value) };
       });
+      setModfiyItem((prev) => ({ ...prev, startMonthChange: true }));
       if (startDate.year === endDate.year && e.target.value > endDate.month) {
         setEndDate((prev) => {
           return { ...prev, month: Number(e.target.value) };
         });
+        setModfiyItem((prev) => ({ ...prev, endMonthChange: true }));
       }
     } else if (e.target.id === "day") {
       setStartDate((prev) => {
         return { ...prev, day: Number(e.target.value) };
       });
+      setModfiyItem((prev) => ({ ...prev, startDayChange: true }));
       if (
         startDate.year === endDate.year &&
         startDate.month === endDate.month &&
@@ -82,34 +91,46 @@ const AddScheduleDate = ({
         setEndDate((prev) => {
           return { ...prev, day: Number(e.target.value) };
         });
+        setModfiyItem((prev) => ({ ...prev, endDayChange: true }));
       }
     }
+    setModfiyItem((prev) => ({ ...prev, dateChange: true }));
   };
   const onChangeEndDate = (e) => {
     if (e.target.id === "year") {
       setEndDate((prev) => {
         return { ...prev, year: Number(e.target.value) };
       });
+      setModfiyItem((prev) => ({ ...prev, endYearChange: true }));
     } else if (e.target.id === "month") {
       setEndDate((prev) => {
         return { ...prev, month: Number(e.target.value) };
       });
+      setModfiyItem((prev) => ({ ...prev, endMonthChange: true }));
     } else if (e.target.id === "day") {
       setEndDate((prev) => {
         return { ...prev, day: Number(e.target.value) };
       });
+      setModfiyItem((prev) => ({ ...prev, endDayChange: true }));
     }
+    setModfiyItem((prev) => ({ ...prev, dateChange: true }));
   };
   return (
     <>
       <div className="add_schedule_select_wrap">
         <p className="add_schedule_select_title">시작날짜</p>
         <select
-          defaultValue={now.getFullYear()}
+          // defaultValue={now.getFullYear()}
           onChange={onChangeStartDate}
           id="year"
           className="add_schedule_select"
-          value={startDate.year}
+          value={
+            isModifyOn
+              ? modifyItem.startYearChange
+                ? startDate.year
+                : modifyItem.startDate.year
+              : startDate.year
+          }
         >
           {startYears.map((el, idx) => (
             <option value={el} key={idx}>
@@ -118,11 +139,17 @@ const AddScheduleDate = ({
           ))}
         </select>
         <select
-          defaultValue={now.getMonth() + 1}
+          // defaultValue={now.getMonth() + 1}
           onChange={onChangeStartDate}
           id="month"
           className="add_schedule_select"
-          value={startDate.month}
+          value={
+            isModifyOn
+              ? modifyItem.startMonthChange
+                ? startDate.month
+                : modifyItem.startDate.month
+              : startDate.month
+          }
         >
           {startMonths.map((el, idx) => (
             <option value={el} key={idx}>
@@ -131,11 +158,17 @@ const AddScheduleDate = ({
           ))}
         </select>
         <select
-          defaultValue={now.getDate()}
+          // defaultValue={now.getDate()}
           onChange={onChangeStartDate}
           id="day"
           className="add_schedule_select"
-          value={startDate.day}
+          value={
+            isModifyOn
+              ? modifyItem.startDayChange
+                ? startDate.day
+                : modifyItem.startDate.day
+              : startDate.day
+          }
         >
           {startDays.map((el, idx) => (
             <option value={el} key={idx}>
@@ -147,11 +180,17 @@ const AddScheduleDate = ({
       <div className="add_schedule_select_wrap">
         <p className="add_schedule_select_title">종료날짜</p>
         <select
-          defaultValue={now.getFullYear()}
+          // defaultValue={now.getFullYear()}
           onChange={onChangeEndDate}
           id="year"
           className="add_schedule_select"
-          value={endDate.year}
+          value={
+            isModifyOn
+              ? modifyItem.endYearChange
+                ? endDate.year
+                : modifyItem.endDate.year
+              : endDate.year
+          }
         >
           {endYears.map((el, idx) => (
             <option value={el} key={idx}>
@@ -160,11 +199,17 @@ const AddScheduleDate = ({
           ))}
         </select>
         <select
-          defaultValue={now.getMonth() + 1}
+          // defaultValue={now.getMonth() + 1}
           onChange={onChangeEndDate}
           id="month"
           className="add_schedule_select"
-          value={endDate.month}
+          value={
+            isModifyOn
+              ? modifyItem.endMonthChange
+                ? endDate.month
+                : modifyItem.endDate.month
+              : endDate.month
+          }
         >
           {endMonths.map((el, idx) => (
             <option value={el} key={idx}>
@@ -173,11 +218,17 @@ const AddScheduleDate = ({
           ))}
         </select>
         <select
-          defaultValue={now.getDate()}
+          // defaultValue={now.getDate()}
           onChange={onChangeEndDate}
           id="day"
           className="add_schedule_select"
-          value={endDate.day}
+          value={
+            isModifyOn
+              ? modifyItem.endDayChange
+                ? endDate.day
+                : modifyItem.endDate.day
+              : endDate.day
+          }
         >
           {endDays.map((el, idx) => (
             <option value={el} key={idx}>

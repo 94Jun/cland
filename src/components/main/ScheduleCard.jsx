@@ -1,4 +1,13 @@
-const ScheduleCard = ({ item, setScheduleList, scheduleList }) => {
+const ScheduleCard = ({
+  item,
+  setScheduleList,
+  scheduleList,
+  isModifyOn,
+  setIsModifyOn,
+  setIsAddScheduleModalOn,
+  setModfiyItem,
+  name,
+}) => {
   let importanceClass;
   if (item.importance === "상") {
     importanceClass = "importance_high";
@@ -44,7 +53,13 @@ const ScheduleCard = ({ item, setScheduleList, scheduleList }) => {
       setScheduleList(temp);
     }
   };
-  const onClickModifySchedule = () => {};
+  const onClickModifySchedule = () => {
+    if (item.changeCss !== "complete") {
+      setIsAddScheduleModalOn(true);
+      setIsModifyOn(true);
+      setModfiyItem(item);
+    }
+  };
   return (
     <div className={`main_card_item item_margin ${item.changeCss}`}>
       <div className="main_card_item_top">

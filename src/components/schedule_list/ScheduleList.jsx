@@ -3,7 +3,14 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState } from "react";
 import ScheduleCard from "../main/ScheduleCard";
 
-const ScheduleList = ({ setScheduleList, scheduleList }) => {
+const ScheduleList = ({
+  setScheduleList,
+  scheduleList,
+  isModifyOn,
+  setIsModifyOn,
+  setIsAddScheduleModalOn,
+  setModfiyItem,
+}) => {
   const now = new Date();
   const today = parseInt(
     now.getFullYear() +
@@ -40,7 +47,7 @@ const ScheduleList = ({ setScheduleList, scheduleList }) => {
     <section className="schedule_list_wrap">
       <div>
         <div className="show_schedule" onClick={onClickListToggle} id="prev">
-          <p>지난 일정</p>
+          <p className="print_toggle_schedule">지난 일정</p>
           <KeyboardArrowDownIcon />
         </div>
         {isScheduleListOn.prev ? (
@@ -66,8 +73,12 @@ const ScheduleList = ({ setScheduleList, scheduleList }) => {
                     <ScheduleCard
                       item={item}
                       key={idx}
-                      setScheduleList={setScheduleList}
                       scheduleList={scheduleList}
+                      setScheduleList={setScheduleList}
+                      isModifyOn={isModifyOn}
+                      setIsModifyOn={setIsModifyOn}
+                      setIsAddScheduleModalOn={setIsAddScheduleModalOn}
+                      setModfiyItem={setModfiyItem}
                     />
                   );
                 })}
@@ -76,7 +87,7 @@ const ScheduleList = ({ setScheduleList, scheduleList }) => {
       </div>
       <div>
         <div className="show_schedule" id="present" onClick={onClickListToggle}>
-          <p>진행중인 일정</p>
+          <p className="print_toggle_schedule">진행중인 일정</p>
           <KeyboardArrowDownIcon />
         </div>
         {isScheduleListOn.present ? (
@@ -112,8 +123,12 @@ const ScheduleList = ({ setScheduleList, scheduleList }) => {
                     <ScheduleCard
                       item={item}
                       key={idx}
-                      setScheduleList={setScheduleList}
                       scheduleList={scheduleList}
+                      setScheduleList={setScheduleList}
+                      isModifyOn={isModifyOn}
+                      setIsModifyOn={setIsModifyOn}
+                      setIsAddScheduleModalOn={setIsAddScheduleModalOn}
+                      setModfiyItem={setModfiyItem}
                     />
                   );
                 })}
@@ -122,7 +137,7 @@ const ScheduleList = ({ setScheduleList, scheduleList }) => {
       </div>
       <div>
         <div className="show_schedule" id="next" onClick={onClickListToggle}>
-          <p>다가오는 일정</p>
+          <p className="print_toggle_schedule">다가오는 일정</p>
           <KeyboardArrowDownIcon />
         </div>
         {isScheduleListOn.next ? (
@@ -148,8 +163,12 @@ const ScheduleList = ({ setScheduleList, scheduleList }) => {
                     <ScheduleCard
                       item={item}
                       key={idx}
-                      setScheduleList={setScheduleList}
                       scheduleList={scheduleList}
+                      setScheduleList={setScheduleList}
+                      isModifyOn={isModifyOn}
+                      setIsModifyOn={setIsModifyOn}
+                      setIsAddScheduleModalOn={setIsAddScheduleModalOn}
+                      setModfiyItem={setModfiyItem}
                     />
                   );
                 })}

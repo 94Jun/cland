@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route, json } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import SchedulePage from "./pages/schedule/SchedulePage";
 import { useEffect, useState } from "react";
@@ -15,8 +15,10 @@ function App() {
   const initialScheduleList =
     jsonScheduleList[0].id !== -1 ? jsonScheduleList : [{ id: -1 }];
   const [isAddScheduleModalOn, setIsAddScheduleModalOn] = useState(false);
+  const [isModifyOn, setIsModifyOn] = useState(false);
   const [calendarDate, setCalendarDate] = useState(new Date());
   const [scheduleList, setScheduleList] = useState(initialScheduleList);
+  const [modifyItem, setModfiyItem] = useState({});
   useEffect(() => {
     window.localStorage.setItem("scheduleList", JSON.stringify(scheduleList));
   }, [scheduleList]);
@@ -24,7 +26,10 @@ function App() {
   return (
     <>
       <div className="my_container">
-        <Header setIsAddScheduleModalOn={setIsAddScheduleModalOn} />
+        <Header
+          setIsAddScheduleModalOn={setIsAddScheduleModalOn}
+          setIsModfiyOn={setIsModifyOn}
+        />
         <Routes>
           <Route
             path="/"
@@ -32,6 +37,10 @@ function App() {
               <Home
                 scheduleList={scheduleList}
                 setScheduleList={setScheduleList}
+                isModifyOn={isModifyOn}
+                setIsModifyOn={setIsModifyOn}
+                setIsAddScheduleModalOn={setIsAddScheduleModalOn}
+                setModfiyItem={setModfiyItem}
               />
             }
           ></Route>
@@ -41,6 +50,10 @@ function App() {
               <SchedulePage
                 scheduleList={scheduleList}
                 setScheduleList={setScheduleList}
+                isModifyOn={isModifyOn}
+                setIsModifyOn={setIsModifyOn}
+                setIsAddScheduleModalOn={setIsAddScheduleModalOn}
+                setModfiyItem={setModfiyItem}
               />
             }
           ></Route>
@@ -61,6 +74,10 @@ function App() {
           setIsAddScheduleModalOn={setIsAddScheduleModalOn}
           setScheduleList={setScheduleList}
           scheduleList={scheduleList}
+          isModifyOn={isModifyOn}
+          modifyItem={modifyItem}
+          setIsModifyOn={setIsModifyOn}
+          setModfiyItem={setModfiyItem}
         />
       ) : null}
     </>

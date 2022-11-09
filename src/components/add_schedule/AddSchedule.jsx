@@ -7,13 +7,17 @@ const AddSchedule = ({
   setIsAddScheduleModalOn,
   setScheduleList,
   scheduleList,
+  isModifyOn,
+  modifyItem,
+  setModfiyItem,
+  setIsModifyOn,
 }) => {
   const [startDate, setStartDate] = useState({});
   const [endDate, setEndDate] = useState({});
   const now = new Date();
 
-  const [scheduleTitle, setScheduleTitle] = useState("");
-  const [scheduleContent, setScheduleContent] = useState("");
+  const [scheduleTitle, setScheduleTitle] = useState(modifyItem.title);
+  const [scheduleContent, setScheduleContent] = useState(modifyItem.content);
   const [scheduleImportance, setScheduleImportance] = useState("");
 
   const onChangeSchedule = (e) => {
@@ -24,7 +28,7 @@ const AddSchedule = ({
     }
   };
   useEffect(() => {
-    setScheduleImportance("중");
+    setScheduleImportance(isModifyOn ? modifyItem.importance : "중");
     setStartDate({
       day: now.getDate(),
       month: now.getMonth() + 1,
@@ -39,55 +43,107 @@ const AddSchedule = ({
 
   const onClickCloseModal = () => {
     setIsAddScheduleModalOn(false);
+    if (isModifyOn) {
+      setIsModifyOn(false);
+      setModfiyItem({});
+    }
   };
   const onChangeImportance = (e) => {
     setScheduleImportance(e.target.value);
   };
   const onSubmitAddSchedule = (e) => {
     e.preventDefault();
-    setScheduleList((prev) => {
-      if (scheduleList[0].id === -1) {
-        return [
-          {
-            id: 0,
-            startDate: startDate,
-            endDate: endDate,
+    if (isModifyOn) {
+      const temp = scheduleList.map((item) => {
+        if (item.id === modifyItem.id) {
+          return {
+            ...item,
+            startDate: {
+              year: modifyItem.startYearChange
+                ? startDate.year
+                : modifyItem.startDate.year,
+              month: modifyItem.startMonthChange
+                ? startDate.month
+                : modifyItem.startDate.month,
+              day: modifyItem.startDayChange
+                ? startDate.day
+                : modifyItem.startDate.day,
+            },
+            endDate: {
+              year: modifyItem.endYearChange
+                ? endDate.year
+                : modifyItem.endDate.year,
+              month: modifyItem.endMonthChange
+                ? endDate.month
+                : modifyItem.endDate.month,
+              day: modifyItem.endDayChange
+                ? endDate.day
+                : modifyItem.endDate.day,
+            },
+            // startDate: startDate,
+            // endDate: endDate,
             title: scheduleTitle,
             content: scheduleContent,
             importance: scheduleImportance,
-          },
-        ];
-      } else {
-        return [
-          ...prev,
-          {
-            id: scheduleList.length,
-            startDate: startDate,
-            endDate: endDate,
-            title: scheduleTitle,
-            content: scheduleContent,
-            importance: scheduleImportance,
-          },
-        ];
-      }
-    });
-    setIsAddScheduleModalOn(false);
+          };
+        } else {
+          return item;
+        }
+      });
+      setScheduleList(temp);
+      setIsAddScheduleModalOn(false);
+      setIsModifyOn(false);
+      setModfiyItem({});
+    } else {
+      setScheduleList((prev) => {
+        if (scheduleList[0].id === -1) {
+          return [
+            {
+              id: 0,
+              startDate: startDate,
+              endDate: endDate,
+              title: scheduleTitle,
+              content: scheduleContent,
+              importance: scheduleImportance,
+            },
+          ];
+        } else {
+          return [
+            ...prev,
+            {
+              id: scheduleList.length,
+              startDate: startDate,
+              endDate: endDate,
+              title: scheduleTitle,
+              content: scheduleContent,
+              importance: scheduleImportance,
+            },
+          ];
+        }
+      });
+      setIsAddScheduleModalOn(false);
+    }
   };
   return (
     <div className="add_schedule">
       <form className="add_schedule_wrap" onSubmit={onSubmitAddSchedule}>
-        <h3 className="add_schedule_title">일정 추가</h3>
+        <h3 className="add_schedule_title">
+          {isModifyOn ? "일정 수정" : "일정 추가"}
+        </h3>
         <AddScheduleDate
           now={now}
           startDate={startDate}
           setStartDate={setStartDate}
           endDate={endDate}
           setEndDate={setEndDate}
+          modifyItem={modifyItem}
+          setModfiyItem={setModfiyItem}
+          isModifyOn={isModifyOn}
         />
         <div className="add_schedule_select_wrap">
           <p className="add_schedule_select_title">중요도</p>
           <select
-            defaultValue="중"
+            defaultValue={isModifyOn ? modifyItem.importance : "중"}
             className="add_schedule_select"
             onChange={onChangeImportance}
           >
@@ -125,7 +181,7 @@ const AddSchedule = ({
             닫기
           </button>
           <button type="submit" className="add_btn">
-            추가
+            {isModifyOn ? "수정" : "추가"}
           </button>
         </div>
       </form>

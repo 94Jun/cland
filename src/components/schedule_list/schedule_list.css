@@ -12,6 +12,10 @@
 }
 .item_margin {
   width: 95%;
-  margin: 20px 0;
+  margin: 10px 0;
   min-height: 100px;
+}
+.print_toggle_schedule {
+  margin: 20px 0;
+  font-size: 1.1em;
 }
