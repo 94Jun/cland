@@ -1,25 +1,11 @@
 import ScheduleList from "../../components/schedule_list/ScheduleList";
 import TopBar from "../../components/top_bar/TopBar";
 
-const SchedulePage = ({
-  scheduleList,
-  setScheduleList,
-  isModifyOn,
-  setIsModifyOn,
-  setIsAddScheduleModalOn,
-  setModfiyItem,
-}) => {
+const SchedulePage = () => {
   return (
     <div className="flex_column">
       <TopBar title={"일정 목록"} />
-      <ScheduleList
-        scheduleList={scheduleList}
-        setScheduleList={setScheduleList}
-        isModifyOn={isModifyOn}
-        setIsModifyOn={setIsModifyOn}
-        setIsAddScheduleModalOn={setIsAddScheduleModalOn}
-        setModfiyItem={setModfiyItem}
-      />
+      <ScheduleList />
     </div>
   );
 };

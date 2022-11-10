@@ -1,13 +1,13 @@
 import MyCalendar from "../../components/calendar/MyCalendar";
 import TopBar from "../../components/top_bar/TopBar";
 
-const CalendarPage = ({calendarDate,setCalendarDate}) => {
+const CalendarPage = () => {
   return (
     <div className="flex_column">
-      <TopBar title={'달력'} />
-      <MyCalendar calendarDate={calendarDate} setCalendarDate={setCalendarDate} />
+      <TopBar title={"달력"} />
+      <MyCalendar />
     </div>
   );
-}
- 
+};
+
 export default CalendarPage;

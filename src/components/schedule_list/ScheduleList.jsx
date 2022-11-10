@@ -2,15 +2,12 @@ import "./schedule_list.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState } from "react";
 import ScheduleCard from "../main/ScheduleCard";
+import { useSelector } from "react-redux";
 
-const ScheduleList = ({
-  setScheduleList,
-  scheduleList,
-  isModifyOn,
-  setIsModifyOn,
-  setIsAddScheduleModalOn,
-  setModfiyItem,
-}) => {
+const ScheduleList = () => {
+  const scheduleList = useSelector((state) => {
+    return state.schedule.scheduleList;
+  });
   const now = new Date();
   const today = parseInt(
     now.getFullYear() +
@@ -47,8 +44,10 @@ const ScheduleList = ({
     <section className="schedule_list_wrap">
       <div>
         <div className="show_schedule" onClick={onClickListToggle} id="prev">
-          <p className="print_toggle_schedule">지난 일정</p>
-          <KeyboardArrowDownIcon />
+          <p className="print_toggle_schedule" id="prev">
+            지난 일정
+          </p>
+          <KeyboardArrowDownIcon id="prev" />
         </div>
         {isScheduleListOn.prev ? (
           <div>
@@ -69,26 +68,17 @@ const ScheduleList = ({
                   return end < today;
                 })
                 .map((item, idx) => {
-                  return (
-                    <ScheduleCard
-                      item={item}
-                      key={idx}
-                      scheduleList={scheduleList}
-                      setScheduleList={setScheduleList}
-                      isModifyOn={isModifyOn}
-                      setIsModifyOn={setIsModifyOn}
-                      setIsAddScheduleModalOn={setIsAddScheduleModalOn}
-                      setModfiyItem={setModfiyItem}
-                    />
-                  );
+                  return <ScheduleCard item={item} key={idx} />;
                 })}
           </div>
         ) : null}
       </div>
       <div>
         <div className="show_schedule" id="present" onClick={onClickListToggle}>
-          <p className="print_toggle_schedule">진행중인 일정</p>
-          <KeyboardArrowDownIcon />
+          <p className="print_toggle_schedule" id="present">
+            진행중인 일정
+          </p>
+          <KeyboardArrowDownIcon id="present" />
         </div>
         {isScheduleListOn.present ? (
           <div>
@@ -119,26 +109,17 @@ const ScheduleList = ({
                   return today >= start && today <= end;
                 })
                 .map((item, idx) => {
-                  return (
-                    <ScheduleCard
-                      item={item}
-                      key={idx}
-                      scheduleList={scheduleList}
-                      setScheduleList={setScheduleList}
-                      isModifyOn={isModifyOn}
-                      setIsModifyOn={setIsModifyOn}
-                      setIsAddScheduleModalOn={setIsAddScheduleModalOn}
-                      setModfiyItem={setModfiyItem}
-                    />
-                  );
+                  return <ScheduleCard item={item} key={idx} />;
                 })}
           </div>
         ) : null}
       </div>
       <div>
         <div className="show_schedule" id="next" onClick={onClickListToggle}>
-          <p className="print_toggle_schedule">다가오는 일정</p>
-          <KeyboardArrowDownIcon />
+          <p className="print_toggle_schedule" id="next">
+            다가오는 일정
+          </p>
+          <KeyboardArrowDownIcon id="next" />
         </div>
         {isScheduleListOn.next ? (
           <div>
@@ -159,18 +140,7 @@ const ScheduleList = ({
                   return today < start;
                 })
                 .map((item, idx) => {
-                  return (
-                    <ScheduleCard
-                      item={item}
-                      key={idx}
-                      scheduleList={scheduleList}
-                      setScheduleList={setScheduleList}
-                      isModifyOn={isModifyOn}
-                      setIsModifyOn={setIsModifyOn}
-                      setIsAddScheduleModalOn={setIsAddScheduleModalOn}
-                      setModfiyItem={setModfiyItem}
-                    />
-                  );
+                  return <ScheduleCard item={item} key={idx} />;
                 })}
           </div>
         ) : null}

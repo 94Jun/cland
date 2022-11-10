@@ -1,0 +1,36 @@
+.sticker_container {
+  width: 200px;
+  height: 200px;
+}
+.sticker_wrap {
+  width: 100%;
+  height: 100%;
+}
+.sticker_header {
+  height: 10%;
+  width: 100%;
+  cursor: pointer;
+  background-color: antiquewhite;
+  padding: 0 10px;
+}
+.sticker {
+  width: 100%;
+  height: 80%;
+  border: none;
+  background-color: antiquewhite;
+  resize: none;
+  padding: 0 10px;
+}
+.sticker_footer {
+  height: 10%;
+  width: 100%;
+  background-color: antiquewhite;
+  padding: 0 10px;
+  margin-top: -5px;
+}
+.sticker::-webkit-scrollbar {
+  display: none;
+}
+.sticker:focus {
+  outline: none;
+}

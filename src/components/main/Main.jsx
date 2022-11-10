@@ -1,13 +1,10 @@
 import "./main.css";
 import ScheduleCard from "./ScheduleCard";
-const Main = ({
-  setScheduleList,
-  scheduleList,
-  isModifyOn,
-  setIsModifyOn,
-  setIsAddScheduleModalOn,
-  setModfiyItem,
-}) => {
+import { useSelector } from "react-redux";
+const Main = () => {
+  const scheduleList = useSelector((state) => {
+    return state.schedule.scheduleList;
+  });
   const now = new Date();
 
   const todaySchedule =
@@ -133,17 +130,7 @@ const Main = ({
               })
               .map((item, idx) => {
                 return (
-                  <ScheduleCard
-                    item={item}
-                    idx={idx}
-                    key={idx + item.title}
-                    setScheduleList={setScheduleList}
-                    scheduleList={scheduleList}
-                    isModifyOn={isModifyOn}
-                    setIsModifyOn={setIsModifyOn}
-                    setIsAddScheduleModalOn={setIsAddScheduleModalOn}
-                    setModfiyItem={setModfiyItem}
-                  />
+                  <ScheduleCard item={item} idx={idx} key={idx + item.title} />
                 );
               })
           : null}
@@ -199,17 +186,7 @@ const Main = ({
               })
               .map((item, idx) => {
                 return (
-                  <ScheduleCard
-                    item={item}
-                    idx={idx}
-                    key={idx + item.title}
-                    setScheduleList={setScheduleList}
-                    scheduleList={scheduleList}
-                    isModifyOn={isModifyOn}
-                    setIsModifyOn={setIsModifyOn}
-                    setIsAddScheduleModalOn={setIsAddScheduleModalOn}
-                    setModfiyItem={setModfiyItem}
-                  />
+                  <ScheduleCard item={item} idx={idx} key={idx + item.title} />
                 );
               })
           : null}

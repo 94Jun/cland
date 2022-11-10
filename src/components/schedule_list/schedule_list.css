@@ -1,9 +1,11 @@
 .schedule_list_wrap {
-  margin: 0 200px;
+  width: 80%;
+  margin: 0 auto;
 }
 .show_schedule {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   cursor: pointer;
   color: #666;
 }

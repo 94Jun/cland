@@ -1,13 +1,13 @@
-const ScheduleCard = ({
-  item,
-  setScheduleList,
-  scheduleList,
-  isModifyOn,
-  setIsModifyOn,
-  setIsAddScheduleModalOn,
-  setModfiyItem,
-  name,
-}) => {
+import { useSelector, useDispatch } from "react-redux";
+import { MODIFY_ON } from "../../modules/modal";
+import { SET_MODIFY_ITEM } from "../../modules/modify";
+import { RESET_SCHEDULE_LIST, SET_SCHEDULE_LIST } from "../../modules/schedule";
+
+const ScheduleCard = ({ item }) => {
+  const scheduleList = useSelector((state) => {
+    return state.schedule.scheduleList;
+  });
+  const dispatch = useDispatch();
   let importanceClass;
   if (item.importance === "상") {
     importanceClass = "importance_high";
@@ -18,12 +18,12 @@ const ScheduleCard = ({
   }
   const onClickRemoveSchedule = () => {
     if (scheduleList.length === 1) {
-      setScheduleList([{ id: -1 }]);
+      dispatch(RESET_SCHEDULE_LIST());
     } else {
       const temp = scheduleList
         .filter((el) => el.id !== item.id)
         .map((el, idx) => ({ ...el, id: idx }));
-      setScheduleList(temp);
+      dispatch(SET_SCHEDULE_LIST(temp));
     }
   };
   const onClickToggleSchedule = () => {
@@ -38,7 +38,7 @@ const ScheduleCard = ({
           return { ...el };
         }
       });
-      setScheduleList(temp);
+      dispatch(SET_SCHEDULE_LIST(temp));
     } else {
       const temp = scheduleList.map((el) => {
         if (el.id === item.id) {
@@ -50,14 +50,13 @@ const ScheduleCard = ({
           return { ...el };
         }
       });
-      setScheduleList(temp);
+      dispatch(SET_SCHEDULE_LIST(temp));
     }
   };
   const onClickModifySchedule = () => {
     if (item.changeCss !== "complete") {
-      setIsAddScheduleModalOn(true);
-      setIsModifyOn(true);
-      setModfiyItem(item);
+      dispatch(MODIFY_ON());
+      dispatch(SET_MODIFY_ITEM(item));
     }
   };
   return (

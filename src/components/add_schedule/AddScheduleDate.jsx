@@ -1,13 +1,13 @@
+import { useDispatch } from "react-redux";
+import { CHECK_DATE_CHANGE } from "../../modules/modify";
 const AddScheduleDate = ({
   now,
   startDate,
   setStartDate,
   endDate,
   setEndDate,
-  modifyItem,
-  setModfiyItem,
-  isModifyOn,
 }) => {
+  const dispatch = useDispatch();
   let startYears = [];
   for (let i = now.getFullYear() - 10; i < now.getFullYear() + 10; i++) {
     startYears.push(i);
@@ -54,35 +54,35 @@ const AddScheduleDate = ({
       setStartDate((prev) => {
         return { ...prev, year: Number(e.target.value) };
       });
-      setModfiyItem((prev) => ({ ...prev, startYearChange: true }));
+      dispatch(CHECK_DATE_CHANGE("startYear"));
       if (e.target.value > endDate.year) {
         setEndDate((prev) => {
           return { ...prev, year: Number(e.target.value) };
         });
-        setModfiyItem((prev) => ({ ...prev, endYearChange: true }));
+        dispatch(CHECK_DATE_CHANGE("endYear"));
       }
       if (parseInt(e.target.value) + 9 < endDate.year) {
         setEndDate((prev) => {
           return { ...prev, year: Number(parseInt(e.target.value) + 9) };
         });
-        setModfiyItem((prev) => ({ ...prev, endYearChange: true }));
+        dispatch(CHECK_DATE_CHANGE("endYear"));
       }
     } else if (e.target.id === "month") {
       setStartDate((prev) => {
         return { ...prev, month: Number(e.target.value) };
       });
-      setModfiyItem((prev) => ({ ...prev, startMonthChange: true }));
+      dispatch(CHECK_DATE_CHANGE("startMonth"));
       if (startDate.year === endDate.year && e.target.value > endDate.month) {
         setEndDate((prev) => {
           return { ...prev, month: Number(e.target.value) };
         });
-        setModfiyItem((prev) => ({ ...prev, endMonthChange: true }));
+        dispatch(CHECK_DATE_CHANGE("endMonth"));
       }
     } else if (e.target.id === "day") {
       setStartDate((prev) => {
         return { ...prev, day: Number(e.target.value) };
       });
-      setModfiyItem((prev) => ({ ...prev, startDayChange: true }));
+      dispatch(CHECK_DATE_CHANGE("startDay"));
       if (
         startDate.year === endDate.year &&
         startDate.month === endDate.month &&
@@ -91,29 +91,27 @@ const AddScheduleDate = ({
         setEndDate((prev) => {
           return { ...prev, day: Number(e.target.value) };
         });
-        setModfiyItem((prev) => ({ ...prev, endDayChange: true }));
+        dispatch(CHECK_DATE_CHANGE("endDay"));
       }
     }
-    setModfiyItem((prev) => ({ ...prev, dateChange: true }));
   };
   const onChangeEndDate = (e) => {
     if (e.target.id === "year") {
       setEndDate((prev) => {
         return { ...prev, year: Number(e.target.value) };
       });
-      setModfiyItem((prev) => ({ ...prev, endYearChange: true }));
+      dispatch(CHECK_DATE_CHANGE("endYear"));
     } else if (e.target.id === "month") {
       setEndDate((prev) => {
         return { ...prev, month: Number(e.target.value) };
       });
-      setModfiyItem((prev) => ({ ...prev, endMonthChange: true }));
+      dispatch(CHECK_DATE_CHANGE("endMonth"));
     } else if (e.target.id === "day") {
       setEndDate((prev) => {
         return { ...prev, day: Number(e.target.value) };
       });
-      setModfiyItem((prev) => ({ ...prev, endDayChange: true }));
+      dispatch(CHECK_DATE_CHANGE("endDay"));
     }
-    setModfiyItem((prev) => ({ ...prev, dateChange: true }));
   };
   return (
     <>
@@ -124,13 +122,7 @@ const AddScheduleDate = ({
           onChange={onChangeStartDate}
           id="year"
           className="add_schedule_select"
-          value={
-            isModifyOn
-              ? modifyItem.startYearChange
-                ? startDate.year
-                : modifyItem.startDate.year
-              : startDate.year
-          }
+          value={startDate.year}
         >
           {startYears.map((el, idx) => (
             <option value={el} key={idx}>
@@ -143,13 +135,7 @@ const AddScheduleDate = ({
           onChange={onChangeStartDate}
           id="month"
           className="add_schedule_select"
-          value={
-            isModifyOn
-              ? modifyItem.startMonthChange
-                ? startDate.month
-                : modifyItem.startDate.month
-              : startDate.month
-          }
+          value={startDate.month}
         >
           {startMonths.map((el, idx) => (
             <option value={el} key={idx}>
@@ -162,13 +148,7 @@ const AddScheduleDate = ({
           onChange={onChangeStartDate}
           id="day"
           className="add_schedule_select"
-          value={
-            isModifyOn
-              ? modifyItem.startDayChange
-                ? startDate.day
-                : modifyItem.startDate.day
-              : startDate.day
-          }
+          value={startDate.day}
         >
           {startDays.map((el, idx) => (
             <option value={el} key={idx}>
@@ -184,13 +164,7 @@ const AddScheduleDate = ({
           onChange={onChangeEndDate}
           id="year"
           className="add_schedule_select"
-          value={
-            isModifyOn
-              ? modifyItem.endYearChange
-                ? endDate.year
-                : modifyItem.endDate.year
-              : endDate.year
-          }
+          value={endDate.year}
         >
           {endYears.map((el, idx) => (
             <option value={el} key={idx}>
@@ -203,13 +177,7 @@ const AddScheduleDate = ({
           onChange={onChangeEndDate}
           id="month"
           className="add_schedule_select"
-          value={
-            isModifyOn
-              ? modifyItem.endMonthChange
-                ? endDate.month
-                : modifyItem.endDate.month
-              : endDate.month
-          }
+          value={endDate.month}
         >
           {endMonths.map((el, idx) => (
             <option value={el} key={idx}>
@@ -222,13 +190,7 @@ const AddScheduleDate = ({
           onChange={onChangeEndDate}
           id="day"
           className="add_schedule_select"
-          value={
-            isModifyOn
-              ? modifyItem.endDayChange
-                ? endDate.day
-                : modifyItem.endDate.day
-              : endDate.day
-          }
+          value={endDate.day}
         >
           {endDays.map((el, idx) => (
             <option value={el} key={idx}>

@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import "./header.css";
 import Nav from "../nav/Nav";
 import Set from "../set/Set";
-const Header = ({ setIsAddScheduleModalOn, setIsModifyOn }) => {
+import { useDispatch } from "react-redux";
+import { SCHEDULE_MODAL_ON } from "../../modules/modal";
+const Header = () => {
+  const dispatch = useDispatch();
   const onClickAddScheduleModal = () => {
-    setIsAddScheduleModalOn((prev) => !prev);
+    dispatch(SCHEDULE_MODAL_ON());
   };
   return (
     <header className="header">

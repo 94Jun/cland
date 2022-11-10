@@ -1,9 +1,9 @@
 .add_schedule_wrap {
   position: fixed;
-  top: 180px;
-  left: 750px;
-  height: 600px;
-  width: 600px;
+  top: 15vh;
+  left: 35vw;
+  min-height: 60vh;
+  width: 40vw;
   background-color: #eee;
   border-radius: 2em;
   z-index: 1000;
@@ -15,7 +15,7 @@
   margin: 10px 0;
 }
 .add_schedule_select_wrap {
-  margin: 20px 0;
+  margin: 10px 0;
 }
 .add_schedule_select_title {
   font-size: 1.2em;
