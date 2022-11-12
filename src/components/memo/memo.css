@@ -1,30 +1,34 @@
 .sticker_container {
   width: 200px;
   height: 200px;
+  margin: 10px;
 }
 .sticker_wrap {
   width: 100%;
   height: 100%;
 }
 .sticker_header {
-  height: 10%;
+  height: 15%;
   width: 100%;
   cursor: pointer;
-  background-color: antiquewhite;
   padding: 0 10px;
+  text-align: right;
+  font-size: 1.2em;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 .sticker {
   width: 100%;
   height: 80%;
   border: none;
-  background-color: antiquewhite;
   resize: none;
   padding: 0 10px;
+  font-size: 1em;
 }
 .sticker_footer {
   height: 10%;
   width: 100%;
-  background-color: antiquewhite;
   padding: 0 10px;
   margin-top: -5px;
 }
@@ -33,4 +37,60 @@
 }
 .sticker:focus {
   outline: none;
+}
+.memo_board_wrap {
+  width: 90%;
+  margin: 0 auto;
+}
+.add_sticker_btn {
+  margin: 0 20px;
+  margin-top: 20px;
+  border: none;
+  background-color: #eee;
+  font-size: 1em;
+  padding: 5px 20px;
+  border-radius: 0.5em;
+  cursor: pointer;
+  display: block;
+}
+.sticker_footer {
+  color: #777;
+  font-size: 0.7em;
+}
+.book_mark_icon {
+  margin-top: 5px;
+  margin-right: 5px;
+}
+.color_changer {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #888;
+  margin-top: 2px;
+  margin-right: 5px;
+}
+.antiquewhite,
+.antiquewhite .sticker_header,
+.antiquewhite .sticker,
+.antiquewhite .sticker_footer {
+  background-color: antiquewhite;
+}
+.pink,
+.pink .sticker_header,
+.pink .sticker,
+.pink .sticker_footer {
+  background-color: #ffe9f4;
+}
+.aliceblue,
+.aliceblue .sticker_header,
+.aliceblue .sticker,
+.aliceblue .sticker_footer {
+  background-color: aliceblue;
+}
+/*#board {
+  position: absolute;
+}*/
+#board {
+  display: inline-block;
+  margin: 20px;
 }

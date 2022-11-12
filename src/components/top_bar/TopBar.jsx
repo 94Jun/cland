@@ -8,6 +8,9 @@ const TopBar = memo(({ title }) => {
   const isLogin = useSelector((state) => {
     return state.login.isLogin;
   });
+  const currentUser = useSelector((state) => {
+    return state.user.currentUser;
+  });
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
   const onChangeSearch = (e) => {

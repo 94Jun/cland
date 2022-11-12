@@ -7,6 +7,12 @@ const ScheduleCard = ({ item }) => {
   const scheduleList = useSelector((state) => {
     return state.schedule.scheduleList;
   });
+  const isLogin = useSelector((state) => {
+    return state.login.isLogin;
+  });
+  const currentUser = useSelector((state) => {
+    return state.user.currentUser;
+  });
   const dispatch = useDispatch();
   let importanceClass;
   if (item.importance === "상") {
@@ -27,6 +33,7 @@ const ScheduleCard = ({ item }) => {
     }
   };
   const onClickToggleSchedule = () => {
+    console.log(currentUser);
     if (item.changeCss === "complete") {
       const temp = scheduleList.map((el) => {
         if (el.id === item.id) {

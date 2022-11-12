@@ -7,10 +7,31 @@ import AddSchedule from "./components/add_schedule/AddSchedule";
 import Header from "./components/header/Header";
 import CalendarPage from "./pages/calendar/CalendarPage";
 import MemoPage from "./pages/memo/MemoPage";
+import ProjectPage from "./pages/project/ProjectPage";
 import LoginModal from "./components/login/LoginModal";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import "./firebase";
+import { db } from "./firebase";
+import { collection, addDoc, setDoc, doc, getDocs } from "firebase/firestore";
+import { SET_STICKER_LIST } from "./modules/sticker";
+import { SET_SCHEDULE_LIST } from "./modules/schedule";
+async function addDB() {
+  try {
+    const docRef = await addDoc(collection(db, "users"), {
+      first: "Alan",
+      middle: "Mathison",
+      last: "Turing",
+      born: 1912,
+    });
+
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
 
 function App() {
+  const dispatch = useDispatch();
   const isLoginModalOn = useSelector((state) => {
     return state.modal.isLoginModalOn;
   });
@@ -23,13 +44,51 @@ function App() {
   const stickerList = useSelector((state) => {
     return state.sticker.stickerList;
   });
-
+  const isLogin = useSelector((state) => {
+    return state.login.isLogin;
+  });
+  const currentUser = useSelector((state) => {
+    return state.user.currentUser;
+  });
+  async function setDB(list) {
+    await setDoc(doc(db, "user", currentUser?.email), list);
+  }
+  let userInfo;
+  async function getDB() {
+    const snapShot = await getDocs(collection(db, "user"));
+    snapShot.forEach((doc) => {
+      if (doc.id === currentUser?.email) {
+        userInfo = doc.data();
+        dispatch(SET_SCHEDULE_LIST(userInfo.scheduleList));
+        dispatch(SET_STICKER_LIST)(userInfo.stickerList);
+      }
+    });
+  }
+  useEffect(() => {
+    if (isLogin && currentUser) {
+      const temp = {
+        email: currentUser.email,
+        stickerList: stickerList,
+        scheduleList: scheduleList,
+      };
+      setDB(temp);
+    }
+  }, [scheduleList, stickerList]);
+  useEffect(() => {
+    getDB();
+  }, [isLogin]);
   useEffect(() => {
     window.localStorage.setItem("scheduleList", JSON.stringify(scheduleList));
   }, [scheduleList]);
   useEffect(() => {
     window.localStorage.setItem("stickerList", JSON.stringify(stickerList));
   }, [stickerList]);
+  useEffect(() => {
+    window.localStorage.setItem("isLogin", JSON.stringify(isLogin));
+  }, [isLogin]);
+  useEffect(() => {
+    window.localStorage.setItem("currentUser", JSON.stringify(currentUser));
+  }, [currentUser]);
 
   return (
     <>
@@ -41,6 +100,7 @@ function App() {
           <Route path="/schedule" element={<SchedulePage />}></Route>
           <Route path="/calendar" element={<CalendarPage />}></Route>
           <Route path="/memo" element={<MemoPage />}></Route>
+          <Route path="/project" element={<ProjectPage />}></Route>
         </Routes>
       </div>
       {isAddScheduleModalOn ? <AddSchedule /> : null}

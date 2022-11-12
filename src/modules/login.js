@@ -1,5 +1,6 @@
+const jsonIsLogin = JSON.parse(window.localStorage.getItem("isLogin"));
 const initialState = {
-  isLogin: false,
+  isLogin: jsonIsLogin ? jsonIsLogin : false,
 };
 export const LOGIN = () => {
   return { type: "LOGIN" };

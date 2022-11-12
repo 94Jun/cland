@@ -1,9 +1,13 @@
 import "./main.css";
 import ScheduleCard from "./ScheduleCard";
 import { useSelector } from "react-redux";
+import Memo from "../memo/Memo";
 const Main = () => {
   const scheduleList = useSelector((state) => {
     return state.schedule.scheduleList;
+  });
+  const stickerList = useSelector((state) => {
+    return state.sticker.stickerList;
   });
   const now = new Date();
 
@@ -77,6 +81,7 @@ const Main = () => {
           return tommorow >= start && tommorow <= end;
         })
       : null;
+  const markedStickerLength = stickerList.filter((el) => el.isMarked).length;
   return (
     <main className="main">
       <div className="main_card">
@@ -194,9 +199,15 @@ const Main = () => {
       <div className="main_card">
         <div className="main_card_top">
           <span className="main_card_title">고정된 메모</span>
-          <span className="main_card_quantity">0개</span>
+          <span className="main_card_quantity">{markedStickerLength}개</span>
         </div>
-        <div className="main_card_item"></div>
+        {stickerList
+          .filter((item) => {
+            return item.isMarked;
+          })
+          .map((item) => {
+            return <Memo item={item} />;
+          })}
         <div className="main_card_top">
           <span className="main_card_title">진행중인 프로젝트</span>
           <span className="main_card_quantity">0개</span>

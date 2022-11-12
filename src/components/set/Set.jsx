@@ -5,6 +5,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useSelector, useDispatch } from "react-redux";
 import { LOGOUT } from "../../modules/login";
+import { USER_LOGOUT } from "../../modules/user";
 const Set = memo(() => {
   const isLogin = useSelector((state) => {
     return state.login.isLogin;
@@ -12,6 +13,7 @@ const Set = memo(() => {
   const dispatch = useDispatch();
   const onClickLogOut = () => {
     dispatch(LOGOUT());
+    dispatch(USER_LOGOUT());
   };
   return (
     <div className="setting">

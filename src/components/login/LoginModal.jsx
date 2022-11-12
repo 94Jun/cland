@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { LOGIN_MODAL_OFF } from "../../modules/modal";
 import { LOGIN } from "../../modules/login";
+import { USER_LOGIN } from "../../modules/user";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import GoogleIcon from "@mui/icons-material/Google";
 
 const LoginModal = () => {
   const dispatch = useDispatch();
@@ -22,12 +25,36 @@ const LoginModal = () => {
     if (password && email) {
       dispatch(LOGIN());
       dispatch(LOGIN_MODAL_OFF());
+      const temp = { email: email };
+      dispatch(USER_LOGIN(temp));
     }
   };
   const onClickBackground = (e) => {
     if (e.target.className === "login_container") {
       dispatch(LOGIN_MODAL_OFF());
     }
+  };
+  const onClickGoogleLogin = () => {
+    const provider = new GoogleAuthProvider();
+    provider.addScope("profile");
+    provider.addScope("email");
+    const auth = getAuth();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        dispatch(LOGIN());
+        dispatch(LOGIN_MODAL_OFF());
+        const temp = { email: user.email, name: user.displayName };
+        dispatch(USER_LOGIN(temp));
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.customData.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+      });
   };
   return (
     <div className="login_container" onClick={onClickBackground}>
@@ -58,6 +85,18 @@ const LoginModal = () => {
           </div>
           <button type="submit" className="add_btn signin_btn">
             로그인
+          </button>
+          <button
+            type="button"
+            className="add_btn signin_btn"
+            onClick={onClickGoogleLogin}
+          >
+            <div style={{ display: "flex", alignItem: "center" }}>
+              <span style={{ marginLeft: "10%" }}>
+                <GoogleIcon fontSize="small" />
+              </span>
+              <span style={{ marginLeft: "10%" }}>구글 계정으로 로그인</span>
+            </div>
           </button>
           <button
             type="button"
