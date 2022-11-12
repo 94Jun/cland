@@ -1,11 +1,12 @@
-const jsonScheduleList = JSON.parse(
-  window.localStorage.getItem("scheduleList")
-);
+// const jsonScheduleList = JSON.parse(
+//   window.localStorage.getItem("scheduleList")
+// );
 const initialState = {
   scheduleList:
-    jsonScheduleList && jsonScheduleList[0].id !== -1
-      ? jsonScheduleList
-      : [{ id: -1 }],
+    // jsonScheduleList && jsonScheduleList[0]?.id !== -1
+    //   ? jsonScheduleList
+    //   : [{ id: -1 }],
+    [{ id: -1 }],
 };
 export const RESET_SCHEDULE_LIST = () => {
   return { type: "RESET_SCHEDULE_LIST" };
@@ -21,7 +22,7 @@ const schedule = (state = initialState, action) => {
     case "RESET_SCHEDULE_LIST":
       return {
         ...state,
-        scheduleList: { id: -1 },
+        scheduleList: [{ id: -1 }],
       };
     case "SET_SCHEDULE_LIST":
       return {

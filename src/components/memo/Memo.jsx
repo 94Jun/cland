@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { SET_STICKER_LIST, ADD_STICKER_LIST } from "../../modules/sticker";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
+import Br from "./Br";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 const Memo = ({ item, idx, name }) => {
   const dispatch = useDispatch();
   const stickerList = useSelector((state) => {
@@ -11,7 +13,9 @@ const Memo = ({ item, idx, name }) => {
   const [stickerValue, setStickerValue] = useState("");
   const [isModifyOn, setIsModifyOn] = useState(false);
   const onChangeStickerValue = (e) => {
-    setStickerValue(e.target.value);
+    let contents = e.target.value;
+    contents = contents;
+    setStickerValue(contents);
   };
   const onBlurSticker = () => {
     if (stickerValue) {

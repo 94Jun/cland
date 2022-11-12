@@ -208,11 +208,6 @@ const Main = () => {
           .map((item) => {
             return <Memo item={item} />;
           })}
-        <div className="main_card_top">
-          <span className="main_card_title">진행중인 프로젝트</span>
-          <span className="main_card_quantity">0개</span>
-        </div>
-        <div className="main_card_item"></div>
       </div>
     </main>
   );

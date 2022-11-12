@@ -13,22 +13,8 @@ import { useSelector, useDispatch } from "react-redux";
 import "./firebase";
 import { db } from "./firebase";
 import { collection, addDoc, setDoc, doc, getDocs } from "firebase/firestore";
-import { SET_STICKER_LIST } from "./modules/sticker";
-import { SET_SCHEDULE_LIST } from "./modules/schedule";
-async function addDB() {
-  try {
-    const docRef = await addDoc(collection(db, "users"), {
-      first: "Alan",
-      middle: "Mathison",
-      last: "Turing",
-      born: 1912,
-    });
-
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-}
+import { SET_STICKER_LIST, RESET_STICKER_LIST } from "./modules/sticker";
+import { SET_SCHEDULE_LIST, RESET_SCHEDULE_LIST } from "./modules/schedule";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,12 +46,12 @@ function App() {
       if (doc.id === currentUser?.email) {
         userInfo = doc.data();
         dispatch(SET_SCHEDULE_LIST(userInfo.scheduleList));
-        dispatch(SET_STICKER_LIST)(userInfo.stickerList);
+        dispatch(SET_STICKER_LIST(userInfo.stickerList));
       }
     });
   }
   useEffect(() => {
-    if (isLogin && currentUser) {
+    if (isLogin && scheduleList[0].id !== -1 && stickerList[0].id !== -1) {
       const temp = {
         email: currentUser.email,
         stickerList: stickerList,
@@ -77,12 +63,13 @@ function App() {
   useEffect(() => {
     getDB();
   }, [isLogin]);
-  useEffect(() => {
-    window.localStorage.setItem("scheduleList", JSON.stringify(scheduleList));
-  }, [scheduleList]);
-  useEffect(() => {
-    window.localStorage.setItem("stickerList", JSON.stringify(stickerList));
-  }, [stickerList]);
+
+  // useEffect(() => {
+  //   window.localStorage.setItem("scheduleList", JSON.stringify(scheduleList));
+  // }, [scheduleList]);
+  // useEffect(() => {
+  //   window.localStorage.setItem("stickerList", JSON.stringify(stickerList));
+  // }, [stickerList]);
   useEffect(() => {
     window.localStorage.setItem("isLogin", JSON.stringify(isLogin));
   }, [isLogin]);
@@ -100,7 +87,6 @@ function App() {
           <Route path="/schedule" element={<SchedulePage />}></Route>
           <Route path="/calendar" element={<CalendarPage />}></Route>
           <Route path="/memo" element={<MemoPage />}></Route>
-          <Route path="/project" element={<ProjectPage />}></Route>
         </Routes>
       </div>
       {isAddScheduleModalOn ? <AddSchedule /> : null}

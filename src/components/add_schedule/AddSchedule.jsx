@@ -82,14 +82,16 @@ const AddSchedule = () => {
       dispatch(RESET_MODIFY_ITEM());
     } else {
       if (scheduleList[0].id === -1) {
-        const temp = {
-          id: 0,
-          startDate: startDate,
-          endDate: endDate,
-          title: scheduleTitle,
-          content: scheduleContent,
-          importance: scheduleImportance,
-        };
+        const temp = [
+          {
+            id: 0,
+            startDate: startDate,
+            endDate: endDate,
+            title: scheduleTitle,
+            content: scheduleContent,
+            importance: scheduleImportance,
+          },
+        ];
         dispatch(SET_SCHEDULE_LIST(temp));
       } else {
         const temp = {

@@ -25,6 +25,7 @@
   resize: none;
   padding: 0 10px;
   font-size: 1em;
+  white-space: pre-line;
 }
 .sticker_footer {
   height: 10%;
@@ -93,4 +94,10 @@
 #board {
   display: inline-block;
   margin: 20px;
+}
+@media (min-width: 1500px) {
+  .sticker_container {
+    width: 300px;
+    height: 300px;
+  }
 }

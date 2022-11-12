@@ -52,7 +52,7 @@ const ScheduleList = () => {
         {isScheduleListOn.prev ? (
           <div>
             {scheduleList &&
-              scheduleList[0].endDate &&
+              scheduleList[0]?.endDate &&
               scheduleList
                 .filter((item, idx) => {
                   const end = parseInt(
@@ -83,7 +83,7 @@ const ScheduleList = () => {
         {isScheduleListOn.present ? (
           <div>
             {scheduleList &&
-              scheduleList[0].endDate &&
+              scheduleList[0]?.endDate &&
               scheduleList
                 .filter((item, idx) => {
                   const start = parseInt(
@@ -124,7 +124,7 @@ const ScheduleList = () => {
         {isScheduleListOn.next ? (
           <div>
             {scheduleList &&
-              scheduleList[0].endDate &&
+              scheduleList[0]?.endDate &&
               scheduleList
                 .filter((item, idx) => {
                   const start = parseInt(
