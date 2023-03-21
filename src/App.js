@@ -48,6 +48,10 @@ function App() {
         dispatch(SET_SCHEDULE_LIST(userInfo.scheduleList));
         dispatch(SET_STICKER_LIST(userInfo.stickerList));
       }
+      if (!userInfo) {
+        dispatch(SET_SCHEDULE_LIST([{ id: -1 }]));
+        dispatch(SET_STICKER_LIST([{ id: -1 }]));
+      }
     });
   }
   useEffect(() => {

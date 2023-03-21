@@ -51,3 +51,9 @@
 .close_btn {
   background-color: #999;
 }
+.add_schedule_btn_wrap .add_btn:hover {
+  box-shadow: 1px 1px 5px #1abc9c;
+}
+.add_schedule_btn_wrap .close_btn:hover {
+  box-shadow: 1px 1px 5px #999;
+}

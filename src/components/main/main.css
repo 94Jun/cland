@@ -57,7 +57,10 @@
   justify-content: space-between;
   align-items: center;
 }
-.main_card_item_bottom button {
+.main_card_item_bottom_button_wrap{
+  margin : 0 10px 10px 10px;
+}
+.main_card_item_bottom_button_wrap button {
   background-color: #eee;
   border: none;
   margin: 0 5px;
@@ -97,4 +100,7 @@
 }
 .complete .main_card_item_middle {
   display: none;
+}
+.main_card_item_bottom_button_wrap button:hover {
+  box-shadow: 1px 1px 5px #bbb;
 }

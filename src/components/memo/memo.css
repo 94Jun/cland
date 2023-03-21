@@ -101,3 +101,12 @@
     height: 300px;
   }
 }
+.close:hover {
+  text-shadow: 1px 1px 2px #999;
+}
+.color_changer:hover {
+  border: 1.5px solid #888;
+}
+.add_sticker_btn:hover {
+  box-shadow: 1px 1px 5px #ccc;
+}

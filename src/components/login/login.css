@@ -60,3 +60,12 @@
   margin-bottom: 5px;
   display: inline-block;
 }
+.login_input_input {
+  padding: 5px;
+}
+.login_form .signin_btn:hover {
+  box-shadow: 1px 1px 5px dodgerblue;
+}
+.login_form .close_btn:hover {
+  box-shadow: 1px 1px 5px #999;
+}

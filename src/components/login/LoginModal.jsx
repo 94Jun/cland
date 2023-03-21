@@ -70,6 +70,7 @@ const LoginModal = () => {
               id="email"
               value={email}
               onChange={onChangeEmail}
+              className="login_input_input"
             />
           </div>
           <div className="login_input_wrap">
@@ -81,6 +82,7 @@ const LoginModal = () => {
               id="password"
               value={password}
               onChange={onChangePassword}
+              className="login_input_input"
             />
           </div>
           <button type="submit" className="add_btn signin_btn">
@@ -91,11 +93,18 @@ const LoginModal = () => {
             className="add_btn signin_btn"
             onClick={onClickGoogleLogin}
           >
-            <div style={{ display: "flex", alignItem: "center" }}>
-              <span style={{ marginLeft: "10%" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItem: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <span>
                 <GoogleIcon fontSize="small" />
               </span>
-              <span style={{ marginLeft: "10%" }}>구글 계정으로 로그인</span>
+              <span>구글 계정으로 로그인</span>
+              <span></span>
             </div>
           </button>
           <button

@@ -10,75 +10,22 @@ const Main = () => {
     return state.sticker.stickerList;
   });
   const now = new Date();
-
   const todaySchedule =
     scheduleList.length > 0 && scheduleList[0].title
       ? scheduleList.filter((item) => {
-          const start = parseInt(
-            item.startDate.year +
-              "" +
-              (item.startDate.month < 10
-                ? "0" + item.startDate.month
-                : item.startDate.month + "") +
-              (item.startDate.day < 10
-                ? "0" + item.startDate.day
-                : item.startDate.day + "")
-          );
-          const end = parseInt(
-            item.endDate.year +
-              "" +
-              (item.endDate.month < 10
-                ? "0" + item.endDate.month
-                : item.endDate.month + "") +
-              (item.endDate.day < 10
-                ? "0" + item.endDate.day
-                : item.endDate.day + "")
-          );
-          const today = parseInt(
-            now.getFullYear() +
-              "" +
-              (now.getMonth() + 1 < 10
-                ? "0" + now.getMonth() + 1
-                : now.getMonth() + 1 + "") +
-              (now.getDate() < 10 ? "0" + now.getDate() : now.getDate() + "")
-          );
-          return today >= start && today <= end;
+          const startValue = new Date(item.startDate.year, Number(item.startDate.month) - 1, Number(item.startDate.day)).getTime();
+          const endValue = new Date(item.endDate.year, Number(item.endDate.month) - 1, item.endDate.day).getTime();
+          const todayValue = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+          return startValue <= todayValue && todayValue <= endValue;
         })
       : null;
   const tommorowSchedule =
     scheduleList.length > 0 && scheduleList[0].title
       ? scheduleList.filter((item) => {
-          const start = parseInt(
-            item.startDate.year +
-              "" +
-              (item.startDate.month < 10
-                ? "0" + item.startDate.month
-                : item.startDate.month + "") +
-              (item.startDate.day < 10
-                ? "0" + item.startDate.day
-                : item.startDate.day + "")
-          );
-          const end = parseInt(
-            item.endDate.year +
-              "" +
-              (item.endDate.month < 10
-                ? "0" + item.endDate.month
-                : item.endDate.month + "") +
-              (item.endDate.day < 10
-                ? "0" + item.endDate.day
-                : item.endDate.day + "")
-          );
-          const tommorow = parseInt(
-            now.getFullYear() +
-              "" +
-              (now.getMonth() + 1 < 10
-                ? "0" + now.getMonth() + 1
-                : now.getMonth() + 1 + "") +
-              (now.getDate() + 1 < 10
-                ? "0" + Number(now.getDate() + 1)
-                : Number(now.getDate() + 1) + "")
-          );
-          return tommorow >= start && tommorow <= end;
+          const startValue = new Date(item.startDate.year, Number(item.startDate.month) - 1, Number(item.startDate.day)).getTime();
+          const endValue = new Date(item.endDate.year, Number(item.endDate.month) - 1, item.endDate.day).getTime();
+          const tommorowValue = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1).getTime();
+          return startValue <= tommorowValue && tommorowValue <= endValue;
         })
       : null;
   const markedStickerLength = stickerList.filter((el) => el.isMarked).length;
@@ -87,45 +34,10 @@ const Main = () => {
       <div className="main_card">
         <div className="main_card_top">
           <span className="main_card_title">오늘 일정</span>
-          <span className="main_card_quantity">
-            {todaySchedule ? todaySchedule.length : 0}개
-          </span>
+          <span className="main_card_quantity">{todaySchedule ? todaySchedule.length : 0}개</span>
         </div>
-        {scheduleList.length > 0 && scheduleList[0].title
-          ? scheduleList
-              .filter((item) => {
-                const start = parseInt(
-                  item.startDate.year +
-                    "" +
-                    (item.startDate.month < 10
-                      ? "0" + item.startDate.month
-                      : item.startDate.month + "") +
-                    (item.startDate.day < 10
-                      ? "0" + item.startDate.day
-                      : item.startDate.day + "")
-                );
-                const end = parseInt(
-                  item.endDate.year +
-                    "" +
-                    (item.endDate.month < 10
-                      ? "0" + item.endDate.month
-                      : item.endDate.month + "") +
-                    (item.endDate.day < 10
-                      ? "0" + item.endDate.day
-                      : item.endDate.day + "")
-                );
-                const today = parseInt(
-                  now.getFullYear() +
-                    "" +
-                    (now.getMonth() + 1 < 10
-                      ? "0" + now.getMonth() + 1
-                      : now.getMonth() + 1 + "") +
-                    (now.getDate() < 10
-                      ? "0" + now.getDate()
-                      : now.getDate() + "")
-                );
-                return today >= start && today <= end;
-              })
+        {todaySchedule && todaySchedule.length > 0
+          ? todaySchedule
               .sort((a, b) => {
                 const importanceA = a.importance;
                 const importanceB = b.importance;
@@ -134,54 +46,17 @@ const Main = () => {
                 return 0;
               })
               .map((item, idx) => {
-                return (
-                  <ScheduleCard item={item} idx={idx} key={idx + item.title} />
-                );
+                return <ScheduleCard item={item} idx={idx} key={idx + item.title} />;
               })
           : null}
       </div>
       <div className="main_card">
         <div className="main_card_top">
           <span className="main_card_title">내일 일정</span>
-          <span className="main_card_quantity">
-            {tommorowSchedule ? tommorowSchedule.length : 0}개
-          </span>
+          <span className="main_card_quantity">{tommorowSchedule ? tommorowSchedule.length : 0}개</span>
         </div>
-        {scheduleList.length > 0 && scheduleList[0].title
-          ? scheduleList
-              .filter((item) => {
-                const start = parseInt(
-                  item.startDate.year +
-                    "" +
-                    (item.startDate.month < 10
-                      ? "0" + item.startDate.month
-                      : item.startDate.month + "") +
-                    (item.startDate.day < 10
-                      ? "0" + item.startDate.day
-                      : item.startDate.day + "")
-                );
-                const end = parseInt(
-                  item.endDate.year +
-                    "" +
-                    (item.endDate.month < 10
-                      ? "0" + item.endDate.month
-                      : item.endDate.month + "") +
-                    (item.endDate.day < 10
-                      ? "0" + item.endDate.day
-                      : item.endDate.day + "")
-                );
-                const tommorow = parseInt(
-                  now.getFullYear() +
-                    "" +
-                    (now.getMonth() + 1 < 10
-                      ? "0" + now.getMonth() + 1
-                      : now.getMonth() + 1 + "") +
-                    (now.getDate() + 1 < 10
-                      ? "0" + Number(now.getDate() + 1)
-                      : Number(now.getDate() + 1) + "")
-                );
-                return tommorow >= start && tommorow <= end;
-              })
+        {tommorowSchedule && tommorowSchedule.length > 0
+          ? tommorowSchedule
               .sort((a, b) => {
                 const importanceA = a.importance;
                 const importanceB = b.importance;
@@ -190,9 +65,7 @@ const Main = () => {
                 return 0;
               })
               .map((item, idx) => {
-                return (
-                  <ScheduleCard item={item} idx={idx} key={idx + item.title} />
-                );
+                return <ScheduleCard item={item} idx={idx} key={idx + item.title} />;
               })
           : null}
       </div>

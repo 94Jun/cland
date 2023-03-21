@@ -36,3 +36,6 @@
   cursor: pointer;
   color: white;
 }
+.add_btn_wrap .add_btn:hover {
+  box-shadow: 1px 1px 5px #1abc9c;
+}

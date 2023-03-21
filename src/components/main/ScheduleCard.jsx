@@ -26,9 +26,7 @@ const ScheduleCard = ({ item }) => {
     if (scheduleList.length === 1) {
       dispatch(RESET_SCHEDULE_LIST());
     } else {
-      const temp = scheduleList
-        .filter((el) => el.id !== item.id)
-        .map((el, idx) => ({ ...el, id: idx }));
+      const temp = scheduleList.filter((el) => el.id !== item.id).map((el, idx) => ({ ...el, id: idx }));
       dispatch(SET_SCHEDULE_LIST(temp));
     }
   };
@@ -70,35 +68,28 @@ const ScheduleCard = ({ item }) => {
     <div className={`main_card_item item_margin ${item.changeCss}`}>
       <div className="main_card_item_top">
         <span className="main_card_item_title">{item.title}</span>
-        <span className={`main_card_item_importance ${importanceClass}`}>
-          {item.importance}
-        </span>
+        <span className={`main_card_item_importance ${importanceClass}`}>{item.importance}</span>
       </div>
       <div className="main_card_item_middle min_height">
         <p>{item.content}</p>
       </div>
       <div className="main_card_item_bottom">
         <div>
-          {item.startDate.year === item.endDate.year &&
-          item.startDate.month === item.endDate.month &&
-          item.startDate.day === item.endDate.day ? (
+          {item.startDate.year === item.endDate.year && item.startDate.month === item.endDate.month && item.startDate.day === item.endDate.day ? (
             <span>
-              {item.startDate.year}. {item.startDate.month}.{" "}
-              {item.startDate.day}.{" "}
+              {item.startDate.year}. {item.startDate.month}. {item.startDate.day}.{" "}
             </span>
           ) : (
             <span>
-              {item.startDate.year}. {item.startDate.month}.{" "}
-              {item.startDate.day}. ~ {item.endDate.year}. {item.endDate.month}.{" "}
-              {item.endDate.day}.
+              {item.startDate.year}. {item.startDate.month}. {item.startDate.day}. ~ {item.endDate.year}. {item.endDate.month}. {item.endDate.day}.
             </span>
           )}
         </div>
-        <div>
-          <button onClick={onClickToggleSchedule}>완료</button>
-          <button onClick={onClickModifySchedule}>수정</button>
-          <button onClick={onClickRemoveSchedule}>삭제</button>
-        </div>
+      </div>
+      <div className="main_card_item_bottom_button_wrap">
+        <button onClick={onClickToggleSchedule}>완료</button>
+        <button onClick={onClickModifySchedule}>수정</button>
+        <button onClick={onClickRemoveSchedule}>삭제</button>
       </div>
     </div>
   );
